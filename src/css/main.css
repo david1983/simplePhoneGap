@@ -5,13 +5,7 @@
 html, body {
   height: 100%; }
 
-body {
-  background: #eee; }
-
-footer {
-  padding: 1em; }
-
-#content {
+footer, #content {
   padding: 1em; }
 
 md-card {
@@ -21,3 +15,15 @@ md-card {
     text-align: center; }
     md-card .content .data {
       font-size: 4em; }
+    md-card .content .author-image {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50%;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: auto; }
+
+footer {
+  background: #283593;
+  color: #fff; }

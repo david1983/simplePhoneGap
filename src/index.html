@@ -7,142 +7,125 @@
     <title>myWeather</title>
     <link rel="stylesheet" href="libs/angular-material.css">
     <link rel="stylesheet" href="libs/font-awesome.css">
-    <link rel="stylesheet" href="css/main.css">
-
-</head>
+    <link rel="stylesheet" href="css/main.css"> </head>
 
 <body ng-controller="mainCtrl" ng-cloak>
     <div id="main" layout="column" layout-fill>
         <header>
             <md-toolbar class="md-hue-2">
                 <div class="md-toolbar-tools">
-                    <md-button hide-gt-xs class="md-icon-button" aria-label="menu" ng-click="sidenavToggle()">
-                        <i class="fa fa-bars"></i>
-                    </md-button>
+                    <md-button hide-gt-xs class="md-icon-button" aria-label="menu" ng-click="sidenavToggle()"> <i class="fa fa-bars"></i> </md-button>
                     <h2>
-                        <span>Simple webApp</span>
-                    </h2>
-                    <span flex></span>
+                        <span>Simple weatherApp</span>
+                    </h2> <span flex></span>
                     <div hide show-gt-sm>
-                        <md-button class="md-primary" aria-label="menu" ng-click="active='home'">
-                            Home
-                        </md-button>
-                        <md-button class="md-primary" aria-label="settings" ng-click="active='settings'">
-                            Settings
-                        </md-button>
-                        <md-button class="md-primary" aria-label="about" ng-click="active='about'">
-                            About
-                        </md-button>
+                        <md-button class="md-primary" aria-label="menu" ng-click="goTo('home')"> Home </md-button>
+                        <md-button class="md-primary" aria-label="settings" ng-click="goTo('settings')"> Settings </md-button>
+                        <md-button class="md-primary" aria-label="about" ng-click="goTo('about')"> About </md-button>
                     </div>
                 </div>
             </md-toolbar>
         </header>
         <section layout="row" flex>
-            <md-sidenav hide-gt-sm class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" md-disable-backdrop
-                md-whiteframe="4">
+            <md-sidenav hide-gt-sm class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" md-disable-backdrop md-whiteframe="4">
                 <md-toolbar layout="row" class="md-toolbar-tools">
                     <h1 flex>Sidenav</h1>
-                    <md-button ng-click="sidenavToggle()" class="md-icon-button" hide-gt-xs>
-                        <i class="fa fa-times"></i>
-                    </md-button>
+                    <md-button ng-click="sidenavToggle()" class="md-icon-button" hide-gt-xs> <i class="fa fa-times"></i> </md-button>
                 </md-toolbar>
                 <md-content layout-padding>
                     <nav layout="column">
-                        <md-button ng-click="active='home'">Home</md-button>
-                        <md-button ng-click="active='settings'">Settings</md-button>
-                        <md-button ng-click="active='about'">About</md-button>
+                        <md-button ng-click="goTo('home')">Home</md-button>
+                        <md-button ng-click="goTo('settings')">Settings</md-button>
+                        <md-button ng-click="goTo('about')">About</md-button>
                     </nav>
-                    <p hide show-gt-xs>
-                        This sidenav is locked open on your device. To go back to the default behavior, narrow your display.
-                    </p>
+                    <p hide show-gt-xs> This sidenav is locked open on your device. To go back to the default behavior, narrow your display. </p>
                 </md-content>
             </md-sidenav>
-
             <md-content flex="grow" id="content">
-
                 <div ng-show="active=='settings'">
                     <md-card flex>
                         <div layout="column">
                             <div class="header">
-                                <h1>Settings</h1>
-                            </div>
+                                <h1>Settings</h1> </div>
                             <div class="content">
                                 <md-input-container>
-                                    <label>IP address</label>
-                                    <input type="text" ng-model="defaultHost">
-                                </md-input-container>
+                                    <label>IP address or hostname</label>
+                                    <input type="text" ng-model="defaultHost"> </md-input-container>
                             </div>
                         </div>
                     </md-card>
                 </div>
-
                 <div ng-show="active=='about'">
                     <md-card flex>
                         <div layout="column">
                             <div class="header">
-                                <h1>About</h1>
+                                <h1>About</h1> 
                             </div>
                             <div class="content">
+                                <div>
+                                    <div class="author-image" style="background-image:url(image/11822900_10206711284968095_969776402189731194_o.jpg)"> </div>
+                                </div>
+                                <br>
+                                
                                 <p>
-                                    Hi all!!!
+                                I'm really passionate about technology, music and art, and I like to mix them together building websites, games, applications and music instruments.
+                                </p>
+                                <br>
+                                <p>
+                                    Capable of turning coffee into code!
+                                </p>
+                                    
+                                
+                                    <br>
+                                       <i class="fa fa-compass"></i> London
+                                    <br><br>
+                                        <a href="http://davideandreazzini.co.uk">davideandreazzini.co.uk</a>
                                 </p>
                             </div>
                         </div>
                     </md-card>
                 </div>
-
-                <div ng-show="connectionError">
+                <div ng-show="connectionError" >
                     <md-card flex>
                         <div layout="column">
                             <div class="header">
-                                <h1>Connection Error</h1>
-                            </div>
+                                <h1>Connection Error</h1> </div>
                             <div class="content">
                                 <p>Please check the connection with the weather station</p>
-                            </div>
+                            </div> <pre ng-show="showError">{{error | json}}</pre>
+                            <md-button ng-click="showError=!showError">Show error</md-button>
                             <md-button ng-click="retry()">Retry</md-button>
                         </div>
                     </md-card>
                 </div>
-
-
-
                 <div layout-gt-xs="row" layout="column" ng-hide="connectionError" ng-show="active=='home'">
                     <md-card flex>
                         <div layout="column">
                             <div class="header">
-                                <h1>Humidity</h1>
-                            </div>
+                                <h1>Humidity</h1> </div>
                             <div class="content">
-                                <div ng-show="loadData && !data" class="data">
-                                    <i class="fa fa-spin fa-circle-o-notch"></i>
-                                </div>
+                                <div ng-show="loadData && !data" class="data"> <i class="fa fa-spin fa-circle-o-notch"></i> </div>
                                 <div ng-hide="loadData && !data" class="data">{{data.h}}%</div>
                             </div>
                         </div>
                     </md-card>
-
                     <md-card flex>
                         <div layout="column">
                             <div class="header">
-                                <h1>Temperature</h1>
-                            </div>
+                                <h1>Temperature</h1> </div>
                             <div class="content">
-                                <div ng-show="loadData && !data" class="data">
-                                    <i class="fa fa-spin fa-circle-o-notch"></i>
-                                </div>
+                                <div ng-show="loadData && !data" class="data"> <i class="fa fa-spin fa-circle-o-notch"></i> </div>
                                 <div ng-hide="loadData && !data" class="data">{{data.t}} C</div>
                             </div>
                         </div>
                     </md-card>
                 </div>
             </md-content>
-
         </section>
         <footer>
-            <div layout="row" layout-align="center center">
-                <h2>My Awesome Footer</h2>
-            </div>
+            <div layout="row" layout-align="center center"> <span style="font-size:0.8em">
+                    Copyright &copy; 2016 Davide Andreazzini 
+                </span> </div>
         </footer>
     </div>
     <script src="libs/angular.min.js"></script>

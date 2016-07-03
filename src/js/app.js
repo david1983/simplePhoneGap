@@ -2,7 +2,7 @@
      .module('myWeather', ['ngMaterial'])
      .controller('mainCtrl',function($scope, $http, $mdSidenav, $interval){
 
-        $scope.defaultHost = '192.168.4.1';  
+        $scope.defaultHost = 'davideandreazzini.co.uk:3999';  
         $scope.active = 'home'
          $scope.links = [
              {name: 'Home', href: '/'},{name: 'About', href: '/about'}
@@ -11,6 +11,11 @@
          $scope.sidenavToggle = function(){
               $mdSidenav('left').toggle()                
          }
+         
+         $scope.goTo = function(pagename){
+             $scope.active = pagename;
+            $mdSidenav('left').close();
+         }
 
          $scope.getData = function(){
              $scope.loadData = true;
@@ -18,8 +23,8 @@
                 .then(function(result){
                     $scope.data = result.data;
                     $scope.loadData = false;
-                }).catch(function(){
-
+                }).catch(function(e){
+                    $scope.error = e;
                 });
          }
 
