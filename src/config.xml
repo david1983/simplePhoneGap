@@ -3,7 +3,7 @@
         <!-- versionCode is optional and Android only -->
         <name>PhoneGap Example</name>
         <description> An example for phonegap build docs. </description>
-        <author href="https://build.phonegap.com" email="support@phonegap.com"> Hardeep Shoker </author>
+        <author href="https://build.phonegap.com" email="andreazzini.davide@gmail.com"> Davide Andreazzini </author>
         <access origin="*" />
         <allow-intent href="*" />
         <allow-navigation href="*" />
